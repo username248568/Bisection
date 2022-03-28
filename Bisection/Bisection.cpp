@@ -1,20 +1,42 @@
 #include<iostream>
 #include<cmath>
 #include<iomanip>
+#include<string>
+
+#include"exprtk.hpp"
 using namespace std;
 
-//test function for bisection function to solve
-double func(double x)
+//parses string and evaluates given function
+double func(string fun,double z)
 {
-    return sqrt(x*x) - x * x + 2;
+    typedef double T;
+    typedef exprtk::symbol_table<T> symbol_table_t;
+    typedef exprtk::expression<T>   expression_t;
+    typedef exprtk::parser<T>       parser_t;
+
+    const string funct = fun;
+    
+    double x;
+    symbol_table_t symbol_table;
+    symbol_table.add_variable("x", x);
+    symbol_table.add_constants();
+
+    expression_t expression;
+    expression.register_symbol_table(symbol_table);
+
+    parser_t parser;
+    parser.compile(fun, expression);
+    x = z;
+
+    return expression.value();
 }
 
 // bisection solver function
-void bisection(double a, double b, double error)
+void bisection(string fun, double a, double b, double error)
 {
-    if (func(a) * func(b) >= 0)
+    if (func(fun, a) * func(fun, b) >= 0)
     {
-        cout << "f(a): " << func(a) << " f(b): " << func(b) << " f(a)*f(b): " << func(a)*func(b) << endl;
+        cout << "f(a): " << func(fun, a) << " f(b): " << func(fun, b) << " f(a)*f(b): " << func(fun, a)*func(fun, b) << endl;
         cout << "Invalid x0 and x1, f(a)*f(b) is not less than zero" << endl;
         return;
     }
@@ -28,12 +50,12 @@ void bisection(double a, double b, double error)
         c = (a + b) / 2;
 
         // Check if middle point is root
-        if (func(c) == 0.0)
+        if (fun, (c) == 0.0)
             break;
         
 
         // Decide which bound to replace to repeat the steps
-        else if (func(c) * func(a) < 0) {
+        else if (func(fun, c) * func(fun, a) < 0) {
             err = abs(b - c);
             b = c;
         }
@@ -42,7 +64,7 @@ void bisection(double a, double b, double error)
             a = c;
         }
         
-        cout << setw(15); cout << Iteration; cout << setw(15); cout << setprecision(4); cout << x0; cout << setw(15); cout << setprecision(4); cout << x1; cout << setw(15); cout << setprecision(4); cout << c; cout << setw(15); cout << setprecision(4); cout << func(x0); cout << setw(15); cout << setprecision(4); cout << func(x1); cout << setw(15); cout << setprecision(4); cout << func(c); cout << setw(15); cout << setprecision(4); cout << err << endl;
+        cout << setw(15); cout << Iteration; cout << setw(15); cout << setprecision(4); cout << x0; cout << setw(15); cout << setprecision(4); cout << x1; cout << setw(15); cout << setprecision(4); cout << c; cout << setw(15); cout << setprecision(4); cout << func(fun, x0); cout << setw(15); cout << setprecision(4); cout << func(fun, x1); cout << setw(15); cout << setprecision(4); cout << func(fun, c); cout << setw(15); cout << setprecision(4); cout << err << endl;
         Iteration++;
     } while (abs(err) >= error);
     cout << "The value of root is : " << c;
@@ -51,14 +73,18 @@ void bisection(double a, double b, double error)
 // Driver program to test above function
 int main()
 {
-    cout << "input lower bound x0: " << endl;
+    cout << "input fuction to solve(write 'e^x' as 'exp(x)', 'constantexp(x)' as 'constant(exp(x)) or constant*exp(x)'\n";
+    cout << "'logbase(x)' as '(log(x))/(log(base))',constantsqrt(x) as 'constant(sqrt(x)) or constant*sqrt(x)'): ";
+    string fun;
+    getline(cin, fun);
+    cout << "input lower bound x0: ";
     double a,b;
     cin >> a;
-    cout << "input upper bound x1: " << endl;
+    cout << "input upper bound x1: ";
     cin >> b;
-    cout << "input Absolute error value" << endl;
+    cout << "input Absolute error value: ";
     double error;
     cin >> error;
-    bisection(a, b, error);
+    bisection(fun, a, b, error);
     return 0;
 }
