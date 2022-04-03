@@ -52,7 +52,6 @@ void bisection(string fun, double a, double b, double error)
         // Check if middle point is root
         if (fun, (c) == 0.0)
             break;
-        
 
         // Decide which bound to replace to repeat the steps
         else if (func(fun, c) * func(fun, a) < 0) {
@@ -66,6 +65,7 @@ void bisection(string fun, double a, double b, double error)
         
         cout << setw(15); cout << Iteration; cout << setw(15); cout << setprecision(4); cout << x0; cout << setw(15); cout << setprecision(4); cout << x1; cout << setw(15); cout << setprecision(4); cout << c; cout << setw(15); cout << setprecision(4); cout << func(fun, x0); cout << setw(15); cout << setprecision(4); cout << func(fun, x1); cout << setw(15); cout << setprecision(4); cout << func(fun, c); cout << setw(15); cout << setprecision(4); cout << err << endl;
         Iteration++;
+
     } while (abs(err) >= error);
     cout << "The value of root is : " << c;
 }
@@ -73,8 +73,10 @@ void bisection(string fun, double a, double b, double error)
 // Driver program to test above function
 int main()
 {
-    cout << "input fuction to solve(write 'e^x' as 'exp(x)', 'constantexp(x)' as 'constant(exp(x)) or constant*exp(x)'\n";
-    cout << "'logbase(x)' as '(log(x))/(log(base))',constantsqrt(x) as 'constant(sqrt(x)) or constant*sqrt(x)'): ";
+    cout << "input fuction to solve(write 'e^x' as 'exp(x)', '2e^x' as '2(exp(x)) or 2*exp(x),'\n";
+    cout << "'logbase(x)' as '(log(x))/(log(base))', 2sqrt(x) as '2(sqrt(x)) or 2*sqrt(x),'\n ";
+    cout << "'2sinx' as '2(sin(x))', 'sin^2(x)' as (sin(x))^2, same rules apply for other trig functions'\n";
+    cout << "use x as variable): ";
     string fun;
     getline(cin, fun);
     cout << "input lower bound x0: ";
