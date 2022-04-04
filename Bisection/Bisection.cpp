@@ -83,8 +83,8 @@ int main()
 {
     cout << "input fuction to solve(write 'e^x' as 'exp(x)', '2e^x' as '2(exp(x)) or 2*exp(x),'\n";
     cout << "'logbase(x)' as '(log(x))/(log(base))', 2sqrt(x) as '2(sqrt(x)) or 2*sqrt(x),'\n ";
-    cout << "'2sinx' as '2(sin(x))', 'sin^2(x)' as (sin(x))^2, same rules apply for other trig functions'\n";
-    cout << "use x as variable): ";
+    cout << "'2sinx' as '2(sin(x))', 'sin^2(x)' as (sin(x))^2, same rules apply for other trig functions)\n";
+    cout << "use x as variable: ";
     string fun;
     getline(cin, fun);
     cout << "input lower bound x0: ";
