@@ -58,16 +58,16 @@ void bisection(string fun, double a, double b, double error)
         c = (a + b) / 2;
 
         // Check if middle point is root
-        if (func(fun, (c)) == 0.0)
+        if (rnd(func(fun, (c))) == 0.0)
             break;
 
         // Decide which bound to replace to repeat the steps
         else if (func(fun, c) * func(fun, a) < 0) {
-            err = abs(b - c);
+            err = abs(rnd(b) - rnd(c));
             b = c;
         }
         else {
-            err = abs(a - c);
+            err = abs(rnd(a) - rnd(c));
             a = c;
         }
         
