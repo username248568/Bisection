@@ -6,6 +6,13 @@
 #include"exprtk.hpp"
 using namespace std;
 
+ //rounds given double values
+double rnd(double v)
+{
+    return (floor((v * 10000) + 0.5)) / 10000;
+
+}
+
 //parses string and evaluates given function
 double func(string fun,double z)
 {
@@ -43,14 +50,15 @@ void bisection(string fun, double a, double b, double error)
     cout << setw(15); cout << "Iteration"; cout << setw(15); cout << "x0"; cout << setw(15); cout << "x1"; cout << setw(15); cout << "x2"; cout << setw(15); cout << "f(x0)"; cout << setw(15); cout << "f(x1)"; cout << setw(15); cout << "f(x2)"; cout << setw(15); cout << "Absolute Error" << endl;
     double c = a, err;
     int Iteration = 1;
-    do
+    err = 100;
+    while (rnd(err) > error)
     {
         double  x0 = a, x1 = b;
         // Find middle point
         c = (a + b) / 2;
 
         // Check if middle point is root
-        if (fun, (c) == 0.0)
+        if (func(fun, (c)) == 0.0)
             break;
 
         // Decide which bound to replace to repeat the steps
@@ -63,11 +71,11 @@ void bisection(string fun, double a, double b, double error)
             a = c;
         }
         
-        cout << setw(15); cout << Iteration; cout << setw(15); cout << setprecision(4); cout << x0; cout << setw(15); cout << setprecision(4); cout << x1; cout << setw(15); cout << setprecision(4); cout << c; cout << setw(15); cout << setprecision(4); cout << func(fun, x0); cout << setw(15); cout << setprecision(4); cout << func(fun, x1); cout << setw(15); cout << setprecision(4); cout << func(fun, c); cout << setw(15); cout << setprecision(4); cout << err << endl;
+        cout << setw(15); cout << Iteration; cout << setw(15); cout << setprecision(4); cout << rnd(x0); cout << setw(15); cout << setprecision(4); cout << rnd(x1); cout << setw(15); cout << setprecision(4); cout << rnd(c); cout << setw(15); cout << setprecision(4); cout << rnd(func(fun, x0)); cout << setw(15); cout << setprecision(4); cout << rnd(func(fun, x1)); cout << setw(15); cout << setprecision(4); cout << rnd(func(fun, c)); cout << setw(15); cout << setprecision(4); cout << rnd(err) << endl;
         Iteration++;
 
-    } while (abs(err) >= error);
-    cout << "The value of root is : " << c;
+    }
+    cout << "The value of root is : " << rnd(c);
 }
 
 // Driver program to test above function
