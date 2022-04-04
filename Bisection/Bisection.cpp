@@ -41,14 +41,14 @@ double func(string fun,double z)
 // bisection solver function
 void bisection(string fun, double a, double b, double error)
 {
-    if (func(fun, a) * func(fun, b) >= 0)
+    if (func(fun, rnd(a)) * func(fun, rnd(b)) >= 0)
     {
         cout << "f(a): " << func(fun, a) << " f(b): " << func(fun, b) << " f(a)*f(b): " << func(fun, a)*func(fun, b) << endl;
         cout << "Invalid x0 and x1, f(a)*f(b) is not less than zero" << endl;
         return;
     }
     cout << setw(15); cout << "Iteration"; cout << setw(15); cout << "x0"; cout << setw(15); cout << "x1"; cout << setw(15); cout << "x2"; cout << setw(15); cout << "f(x0)"; cout << setw(15); cout << "f(x1)"; cout << setw(15); cout << "f(x2)"; cout << setw(15); cout << "Absolute Error" << endl;
-    double c = a, err;
+    double c, err;
     int Iteration = 1;
     err = 100;
     while (rnd(err) > error)
@@ -58,11 +58,11 @@ void bisection(string fun, double a, double b, double error)
         c = (a + b) / 2;
 
         // Check if middle point is root
-        if (rnd(func(fun, (c))) == 0.0)
+        if (rnd(func(fun, rnd(c))) == 0.0)
             break;
 
         // Decide which bound to replace to repeat the steps
-        else if (func(fun, c) * func(fun, a) < 0) {
+        else if (func(fun, rnd(c)) * func(fun, rnd(a)) < 0) {
             err = abs(rnd(b) - rnd(c));
             b = c;
         }
