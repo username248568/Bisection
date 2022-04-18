@@ -75,7 +75,8 @@ void bisection(string fun, double a, double b, double error)
         Iteration++;
 
     }
-    cout << "The value of root is : " << rnd(c);
+    double root = c;
+    cout << "The approximate root is : " << rnd(root);
 }
 
 // Driver program to test above function
